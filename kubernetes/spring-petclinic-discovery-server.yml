@@ -23,6 +23,18 @@ spec:
             configMapKeyRef:
               name: config-server
               key: CONFIG_SERVER_URL
+        - name: "APPLICATIONINSIGHTS_CONNECTION_STRING"
+          valueFrom:
+            configMapKeyRef:
+              name: config-server
+              key: APPLICATIONINSIGHTS_CONNECTION_STRING
+        - name: "APPLICATIONINSIGHTS_CONFIGURATION_CONTENT"
+          value: >-
+            {
+                "role": {   
+                    "name": "discovery-server"
+                  }
+            }
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -32,14 +44,14 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 180
           successThreshold: 1
-        # readinessProbe:
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: /actuator/health
-        #     port: 8761
-        #     scheme: HTTP
-        #   initialDelaySeconds: 10
-        #   successThreshold: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8761
+            scheme: HTTP
+          initialDelaySeconds: 10
+          successThreshold: 1
         ports:
         - containerPort: 8761
           name: http

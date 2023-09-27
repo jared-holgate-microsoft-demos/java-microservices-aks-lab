@@ -4,8 +4,10 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/spring-petclinic/spring-petclinic-microservices-config
+          uri: https://github.com/jared-holgate-microsoft-demos/spring-petclinic-microservices-config
           default-label: main
+          username: jared-holgate-microsoft-demos
+          password: ${GIT_PAT}
         # Use the File System Backend to avoid git pulling. Enable "native" profile in the Config Server.
         native:
           searchLocations: file:///${GIT_REPO}

@@ -1,3 +1,15 @@
+
+kubectl delete pod config-server
+
+kubectl delete pod discovery-server
+
+kubectl delete pod admin-server
+kubectl delete pod api-gateway
+kubectl delete pod customers-service
+kubectl delete pod vets-service  
+kubectl delete pod visits-service
+
+
 kubectl delete deployment admin-server
 kubectl delete deployment api-gateway
 kubectl delete deployment config-server
