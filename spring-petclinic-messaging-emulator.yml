@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: visits-service
-  name: visits-service
+    app: messaging-emulator
+  name: messaging-emulator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: visits-service
+      app: messaging-emulator
   template:
     metadata:
       labels:
-        app: visits-service
+        app: messaging-emulator
         azure.workload.identity/use: "true"
     spec:
       serviceAccountName: workload-identity-sa
@@ -24,8 +24,8 @@ spec:
           volumeAttributes: 
             secretProviderClass: "azure-kvname-user-msi"
       containers:
-      - image: acrpetclinic3603ec.azurecr.io/spring-petclinic-visits-service:3.0.2
-        name: visits-service
+      - image: acrpetclinic3603ec.azurecr.io/spring-petclinic-messaging-emulator:3.0.2
+        name: messaging-emulator
         env:
         - name: "CONFIG_SERVER_URL"
           valueFrom:
@@ -41,7 +41,7 @@ spec:
           value: >-
             {
                 "role": {   
-                    "name": "visits-service"
+                    "name": "messaging-emulator"
                   }
             }
         - name: SPRING_JMS_SERVICEBUS_CONNECTIONSTRING
@@ -89,13 +89,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: visits-service
-  name: visits-service
+    app: messaging-emulator
+  name: messaging-emulator
 spec:
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
-    app: visits-service
-  type: ClusterIP
+    app: messaging-emulator
+  type: LoadBalancer

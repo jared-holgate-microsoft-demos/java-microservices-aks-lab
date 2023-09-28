@@ -73,6 +73,8 @@ metadata:
   labels:
     app: api-gateway
   name: api-gateway
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ports:
   - port: 8080

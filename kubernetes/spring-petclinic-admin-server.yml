@@ -73,6 +73,8 @@ metadata:
   labels:
     app: admin-server
   name: admin-server
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ports:
   - port: 8080
